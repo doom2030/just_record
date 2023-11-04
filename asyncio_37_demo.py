@@ -203,7 +203,7 @@ task.add_done_callback(test_call_back)
 future.add_done_callback(test_call_back)
 
 # 运行协程方式有几种(方式一：asyncio.gather())
-# asyncio.gather(coro) # 错误，asyncio.gather()只能运行task和future对象,不能运行原生协程对象
+asyncio.gather(coro) # asyncio.gather()运行task和future对象,原生协程对象
 asyncio.gather(task)
 asyncio.gather(future)
 
