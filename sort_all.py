@@ -11,8 +11,8 @@ def bubble_sorted(ls: List[int]) -> List[int]:
     """
     for i in range(len(ls) - 1):
         for j in range(len(ls) - i - 1):
-            if ls[i] > ls[i+1]:
-                ls[i], ls[i+1] = ls[i+1], ls[i]
+            if ls[j] > ls[j+1]:
+                ls[j], ls[j+1] = ls[j+1], ls[j]
     return ls
 
 
