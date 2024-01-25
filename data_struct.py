@@ -326,19 +326,147 @@ class RedBlackTree(object):
     """
     pass
 
+class TableGraph(object):
+    """
+    基于字典 邻接表实现图
+    """
+    def __init__(self) -> None:
+        """
+        self.info = {
+            "v1": {
+                "v2": 100,
+                "v3": 200
+            },
+            "v2": {
+                "v4": 150,
+                "v5": 120
+            }
+        }
+        """
+        self.info = {}
 
-class LinkGraph(object):
-    """
-    邻接表图
-    """
-    pass
+    def add_vertix(self, v):
+        if v in self.info.keys():
+            raise "当前节点已存在"
+        self.info[v] = {}
 
 
-class VertexGraph(object):
+    def add_edge(self, from_v, to_v, value):
+        if from_v not in self.info.keys():
+            self.add_vertix(from_v)
+        if to_v not in self.info.keys():
+            self.add_vertix(to_v)
+        if to_v in self.info[from_v].keys():
+            raise "当前节点边已存在"
+        self.info[from_v][to_v] = value
+
+
+    def remove_vertix(self, v):
+        if v not in self.info.keys():
+            raise "当前顶点不存在"
+        del self.info[v]
+        for val in self.info.values():
+            if v in val.keys():
+                del val[v]
+        
+
+    def remove_edge(self, from_v, to_v):
+        if from_v not in self.info.keys():
+            raise "开始顶点不存在"
+        if to_v not in self.info.keys():
+            raise "结束顶点不存在"
+        if to_v not in self.info[from_v].keys():
+            raise "结束顶点不在开始顶点关系中"
+        del self.info[from_v][to_v]
+
+    def get_vertix_to_edges(self, vertix):
+        if vertix not in self.info.keys():
+            raise "顶点不存在"
+        return self.info[vertix]
+
+    def get_all_vertix(self):
+        if not self.info:
+            return None
+        return self.info.keys()
+
+    def get_all_edges(self):
+        edges = []
+        if self.info:
+            for key, value in self.info.items():
+                for k, v in value.items():
+                    edge_item = (key, k, v)
+                    edges.append(edge_item)
+        return edges
+
+    def len_vertix(self):
+        return len(self.info.keys())
+
+    def len_edges(self):
+        return len(self.get_all_edges)
+
+
+class Graph(object):
     """
-    邻接矩阵图
+    邻居矩阵实现无向图
     """
-    pass
+    def __init__(self, point_num) -> None:
+        self.point_num = point_num
+        self.matrix = [[0]*self.point_num for _ in range(self.point_num)]
+
+    def add_edge(self, begin_point, end_point, value):
+        if begin_point < 0 or begin_point > self.point_num or end_point < 0 or end_point > self.point_num:
+            raise ValueError("索引异常")
+        self.matrix[begin_point][end_point] = value
+        self.matrix[end_point][begin_point] = value
+
+    def remove_dege(self, begin_point, end_point):
+        if begin_point < 0 or begin_point > self.point_num or end_point < 0 or end_point > self.point_num:
+            raise ValueError("索引异常")
+        self.matrix[begin_point][end_point] = 0
+        self.matrix[end_point][begin_point] = 0
+
+
+    def add_point(self):
+        num = len(self.matrix)
+        for line in self.matrix:
+            line.append(0)
+        self.matrix.append([0 for _ in num+1])
+
+    def remove_point(self):
+        self.matrix.pop()
+        for line in self.matrix:
+            line.pop()
+
+
+class DirectGraph(object):
+    """
+    邻接矩阵实现有向图
+    判断有向无向( 只要有一项matrix[i][j] != matrix[j][i] 就是有向, 如果所有的matrix[i][j] == matrix[j][i]就是无向)
+    """
+    def __init__(self, point_num) -> None:
+        self.point_num = point_num
+        self.matrix = [[0]*self.point_num for _ in range(self.point_num)]
+
+    def add_edge(self, begin_point, end_point, value):
+        if begin_point < 0 or begin_point > self.point_num or end_point < 0 or end_point > self.point_num:
+            raise ValueError("索引异常")
+        self.matrix[begin_point][end_point] = value
+
+    def remove_edge(self, begin_point, end_point):
+        if begin_point < 0 or begin_point > self.point_num or end_point < 0 or end_point > self.point_num:
+            raise ValueError("索引异常")
+        self.matrix[begin_point][end_point] = 0
+
+    def add_point(self):
+        for line in self.matrix:
+            line.append(0)
+        num = len(self.matrix)
+        self.matrix.append([0 for _ in range(num+1)])
+
+    def remove_point(self):
+        self.matrix.pop()
+        for line in self.matrix:
+            line.pop()
 
 
 
