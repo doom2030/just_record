@@ -303,7 +303,26 @@ class MinHeapify(object):
     """
     小根堆
     """
-    pass
+    def __init__(self) -> None:
+        self.heapify_container = []
+
+
+    def heapify(self, arr, begin_idx, end_idx):
+        min_idx = begin_idx
+        left_idx = begin_idx * 2 + 1
+        right_idx = begin_idx * 2 + 2
+
+        while left_idx < end_idx and arr[left_idx] < arr[min_idx]:
+            min_idx = begin_idx
+        while right_idx < end_idx and arr[right_idx] < arr[min_idx]:
+            min_idx = right_idx
+        if min_idx != begin_idx:
+            arr[min_idx], arr[begin_idx] = arr[begin_idx], arr[min_idx]
+            self.heapify(arr, min_idx, end_idx)
+
+    def to_heapify(self):
+        for i in range(len(self.heapify_container)// 2 -1, -1, -1):
+            self.heapify(self.heapify_container, i, len(self.heapify_container)-1)
 
 
 class BlancTree(object):
