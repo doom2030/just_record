@@ -157,7 +157,7 @@ class PrimaryQueue(object):
 
 class DoubleQueue(object):
     """
-    双端队列,两个列表组成,左列表，右列表
+    双端队列,两个列表组成,左列表，右列表，均要符合先进先出原则
     3 4 5 6 7 8
     """
     def __init__(self, init_list: List[Any] = None) -> None:
@@ -173,14 +173,14 @@ class DoubleQueue(object):
         return True
 
     def pop(self) -> Any:
-        return self.right_list.pop()
+        return self.right_list.pop(0)
 
     def append_left(self, val: Any) -> bool:
         self.left_list.insert(0, val)
         return True
 
     def pop_left(self) -> Any:
-        return self.left_list.pop(0)
+        return self.left_list.pop()
 
     def length(self) -> int:
         if not self.left_list and not self.right_list:
