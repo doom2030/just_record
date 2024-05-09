@@ -42,6 +42,13 @@ class UserInfo(Model):
     age = Column(column_name="age", column_type="int")
 
 
+Customer = type("Customer", (), {"name": "yzj", "age": 10, "phone": 13245678998})
+
+customer = Customer()
+print(customer.name)
+print(customer.age)
+print(customer.phone)
+
 if __name__ == "__main__":
     user_info = UserInfo()
     user_info.name = "yzj"
